@@ -2,13 +2,15 @@
 
 The trained model is distributed through the repository's GitHub Releases so normal Git history stays small.
 
-The default OpenVINO bundle contains:
+The `v1.0.0-models` release asset `ppyoloe-openvino-model.zip` contains:
 
 - `model.xml` — OpenVINO IR graph.
 - `model.bin` — OpenVINO IR weights.
 - `model.mapping` — optional conversion metadata retained with the exported model.
 
-The release also publishes a `SHA-256` checksum file. The download helper verifies the archive before extracting it into this directory.
+The release also publishes `ppyoloe-openvino-model.zip.sha256` with a `SHA-256`
+digest. The download helper verifies the archive before extracting it into this
+directory.
 
 Small metadata files remain in Git:
 

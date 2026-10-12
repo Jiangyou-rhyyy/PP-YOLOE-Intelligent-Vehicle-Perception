@@ -70,8 +70,10 @@ pip install -e .
 
 ### 2. Download the model bundle
 
-Model weights are kept out of normal Git history. Download the release bundle;
-the helper validates its SHA-256 checksum and places the expected files in `model/`.
+Model weights are kept out of normal Git history. Download the
+[`v1.0.0-models` release](https://github.com/Jiangyou-rhyyy/PP-YOLOE-Intelligent-Vehicle-Perception/releases/tag/v1.0.0-models)
+bundle; the helper validates its SHA-256 checksum and places the expected files in
+`model/`.
 
 ```bash
 python scripts/download_models.py
