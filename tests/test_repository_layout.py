@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_TRACKED_SIZE = 20 * 1024 * 1024
-IGNORED_PARTS = {".git", ".pytest_cache", ".superpowers", "__pycache__"}
+IGNORED_PARTS = {".git", ".pytest_cache", ".superpowers", ".venv", "__pycache__"}
 
 
 def publishable_files() -> list[Path]:
