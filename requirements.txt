@@ -1,0 +1,5 @@
+numpy>=1.24,<3.0
+opencv-python>=4.8,<5.0
+openvino>=2025.4,<2027.0
+Pillow>=10,<13
+PyYAML>=6,<7

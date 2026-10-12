@@ -1,1 +1,24 @@
 .worktrees/
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Runtime data and generated outputs
+data/images/*
+data/results/*
+result/*
+
+# Models are distributed through GitHub Releases
+model/*.bin
+model/*.mapping
+model/*.pdiparams
+model/*.pdiparams.info
+model/*.pdmodel
+model/*.xml
+
+# Local tooling state
+.superpowers/

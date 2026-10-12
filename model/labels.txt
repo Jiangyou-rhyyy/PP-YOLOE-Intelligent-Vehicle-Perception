@@ -1,0 +1,13 @@
+rider
+pedestrian
+other_vehicle
+trailer
+train
+bus
+car
+truck
+traffic_sign
+traffic_light
+other_person
+motorcycle
+bicycle
