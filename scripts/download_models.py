@@ -112,7 +112,7 @@ def main(argv: list[str] | None = None) -> int:
     except RuntimeError as exc:
         print(str(exc), file=sys.stderr)
         return 2
-    print(f"Verified OpenVINO model is available in {destination}")
+    print(f"OpenVINO model is available in {destination}")
     return 0
 
 

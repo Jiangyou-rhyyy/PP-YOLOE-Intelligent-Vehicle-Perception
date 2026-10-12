@@ -31,6 +31,20 @@ class FakeCapture:
         self.released = True
 
 
+class FailingAfterInitialFrameCapture(FakeCapture):
+    def __init__(self, frame: np.ndarray) -> None:
+        super().__init__([(True, frame)])
+        self.failed_reads = 0
+
+    def read(self):
+        if self.frames:
+            return self.frames.pop(0)
+        self.failed_reads += 1
+        if self.failed_reads > 3:
+            self.opened = False
+        return False, None
+
+
 def configure_runtime(monkeypatch, module, capture: FakeCapture, keys: list[int]) -> dict:
     state = {"destroyed": False, "shown": 0}
     monkeypatch.setattr(module, "OpenVINODetector", FakeDetector)
@@ -90,3 +104,25 @@ def test_dropped_frame_is_skipped_and_escape_stops_cleanly(tmp_path, monkeypatch
     assert state["shown"] == 1
     assert capture.released
     assert state["destroyed"]
+
+
+def test_persistent_dropped_frames_return_an_error_and_release_resources(
+    tmp_path, monkeypatch, capsys
+) -> None:
+    from scripts import detect_webcam
+
+    frame = np.zeros((8, 8, 3), dtype=np.uint8)
+    capture = FailingAfterInitialFrameCapture(frame)
+    state = configure_runtime(monkeypatch, detect_webcam, capture, [0, 0, 0, 0])
+    monkeypatch.setattr(
+        detect_webcam, "MAX_CONSECUTIVE_DROPPED_FRAMES", 2, raising=False
+    )
+
+    result = detect_webcam.main(
+        ["--model", str(tmp_path / "model.xml"), "--labels", str(tmp_path / "labels.txt")]
+    )
+
+    assert result != 0
+    assert capture.released
+    assert state["destroyed"]
+    assert "Camera stopped returning frames" in capsys.readouterr().err

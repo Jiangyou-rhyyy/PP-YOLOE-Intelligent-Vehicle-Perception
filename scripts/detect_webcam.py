@@ -15,6 +15,7 @@ from vehicle_perception.visualization import draw_detections
 
 
 WINDOW_NAME = "PP-YOLOE+ Vehicle Perception"
+MAX_CONSECUTIVE_DROPPED_FRAMES = 30
 
 
 def _window_size(value: str) -> tuple[int, int]:
@@ -96,14 +97,22 @@ def main(argv: list[str] | None = None) -> int:
                     current_frame, current_future = next_frame, next_future
                     continue
 
-                while capture.isOpened():
+                dropped_frames = 1
+                while (
+                    capture.isOpened()
+                    and dropped_frames < MAX_CONSECUTIVE_DROPPED_FRAMES
+                ):
+                    if cv2.waitKey(1) & 0xFF == 27:
+                        return 0
                     ok, replacement = capture.read()
                     if ok and replacement is not None:
                         current_frame = replacement
                         current_future = _submit(executor, detector, current_frame)
                         break
+                    dropped_frames += 1
                 else:
-                    break
+                    print("Camera stopped returning frames", file=sys.stderr)
+                    return 3
         return 0
     except (FileNotFoundError, RuntimeError, ValueError) as exc:
         print(str(exc), file=sys.stderr)
