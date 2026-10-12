@@ -7,4 +7,4 @@ This repository builds on the following open-source projects and research resour
 - **BDD100K** — Created by the Berkeley DeepDrive team. Dataset images and annotations are not redistributed by this repository. Users must obtain them from the official dataset source and follow its terms: <https://www.vis.xyz/bdd100k/>.
 - **PP-YOLOE paper** — Shangliang Xu et al., “PP-YOLOE: An evolved version of YOLO,” 2022: <https://arxiv.org/abs/2203.16250>.
 
-The repository license applies to the project code and documentation authored for this repository. Third-party software, model components, and dataset material remain subject to their respective licenses and terms.
+The repository license applies to the project code and documentation authored for this repository. Third-party software, model components, and dataset material remain subject to their respective licenses and terms. The supplied OpenVINO IR is distributed as a release asset with its associated conversion metadata; it is not an independently relicensed upstream model.
